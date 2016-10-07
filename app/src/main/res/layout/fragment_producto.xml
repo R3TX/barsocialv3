@@ -2,13 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="gr7.compumovil.udea.edu.co.barsocial3.MainActivity">
+    tools:context="gr7.compumovil.udea.edu.co.barsocial3.ProductoFragment">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/reciclador"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>

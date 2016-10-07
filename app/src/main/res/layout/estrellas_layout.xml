@@ -1,0 +1,40 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:id="@+id/estrellas"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <ImageView
+        android:id="@+id/lista_lugar_estrella_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_star_full"
+        />
+    <ImageView
+        android:id="@+id/lista_lugar_estrella_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_star_half"/>
+    <ImageView
+        android:id="@+id/lista_lugar_estrella_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_star_empty"/>
+    <ImageView
+        android:id="@+id/lista_lugar_estrella_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_star_empty"/>
+    <ImageView
+        android:id="@+id/lista_lugar_estrella_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_star_empty"/>
+
+</LinearLayout>

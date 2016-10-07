@@ -3,7 +3,10 @@ package gr7.compumovil.udea.edu.co.barsocial3;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -26,14 +29,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-/*
-        final ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            // Poner ícono del drawer toggle
-            ab.setHomeAsUpIndicator(R.drawable.drawer_toggle);
-            ab.setDisplayHomeAsUpEnabled(true);
-        }
-*/
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -42,6 +38,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (navigationView != null) {
+            navigationView.setCheckedItem(0);
+            onNavigationItemSelected(navigationView.getMenu().getItem(0));
+        }
     }
 
     @Override
@@ -81,14 +82,31 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Fragment fragmentoGenerico = null;
+        FragmentManager fragmentManager = getSupportFragmentManager();
         int id = item.getItemId();
 
+
         if (id == R.id.Bares) {
+            Log.e("creo lugares", "la puta");
+            fragmentoGenerico = new InicioFragment();
             // Handle the camera action
         } else if (id == R.id.Cafe) {
+            fragmentoGenerico = new InicioFragment();
 
         } else if (id == R.id.Restaurantes) {
+            fragmentoGenerico = new InicioFragment();
 
+        } else if (id == R.id.Evento) {
+            fragmentoGenerico = new FragmentoLugar();
+
+        }
+
+        if (fragmentoGenerico != null) {
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content_main, fragmentoGenerico)
+                    .commit();
         }
 
 

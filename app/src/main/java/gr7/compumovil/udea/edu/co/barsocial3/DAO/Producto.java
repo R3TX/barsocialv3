@@ -5,5 +5,6 @@ package gr7.compumovil.udea.edu.co.barsocial3.DAO;
  */
 public class Producto {
 
-    String name, tipo, precio;
+    String name, tipo, descripcion,urlImagen;
+
 }

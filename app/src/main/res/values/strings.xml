@@ -7,4 +7,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
+    <string name="titulo_tab__info_lugar">Información</string>
+    <string name="titulo_tab_productos_lugar">Productos</string>
+    <string name="titulo_tab_eventos_lugar">Eventos</string>
 </resources>
