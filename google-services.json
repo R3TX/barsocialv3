@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "718740473354",
+    "firebase_url": "https://barsocial-da3b2.firebaseio.com",
+    "project_id": "barsocial-da3b2",
+    "storage_bucket": "barsocial-da3b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718740473354:android:1ae20150d050eec6",
+        "android_client_info": {
+          "package_name": "gr7.compumovil.udea.edu.co.barsocial3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718740473354-r9n9p1lo1m4ihs3cp2v7e7qcoqso7u64.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "gr7.compumovil.udea.edu.co.barsocial3",
+            "certificate_hash": "18CBD74C6BE859C0E58C3328EFE9C4D6853C97DE"
+          }
+        },
+        {
+          "client_id": "718740473354-nc64tgqv36r70f5382e0m0ebkgc2jlqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhpOjc8kfza8YUsZ2C2HG1KOr8nULzDRI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718740473354-nc64tgqv36r70f5382e0m0ebkgc2jlqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

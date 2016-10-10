@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        navigationView.getMenu().getItem(0).setChecked(true);
         if (navigationView != null) {
             navigationView.setCheckedItem(0);
             onNavigationItemSelected(navigationView.getMenu().getItem(0));
@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity
 
 
         if (id == R.id.Bares) {
-            Log.e("creo lugares", "la puta");
             fragmentoGenerico = new InicioFragment();
             // Handle the camera action
         } else if (id == R.id.Cafe) {

@@ -7,14 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 
+import java.util.List;
+
+import gr7.compumovil.udea.edu.co.barsocial3.DAO.Lugar;
 import gr7.compumovil.udea.edu.co.barsocial3.quemar.Comida;
 
 /**
@@ -23,18 +30,54 @@ import gr7.compumovil.udea.edu.co.barsocial3.quemar.Comida;
 public class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.ViewHolder> {
     String busqueda;
     private DatabaseReference mDatabase;
-    StorageReference storageRef;
-    FirebaseStorage storage;
+    //private StorageReference storageRef;
+    //private FirebaseStorage storage;
 
     public AdaptadorInicio(){
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReferenceFromUrl("gs://barsocial-da3b2.appspot.com/");
+        mDatabase.child("lugares");
+
+
+      //  storage = FirebaseStorage.getInstance();
+        //storageRef = storage.getReferenceFromUrl("gs://barsocial-da3b2.appspot.com/");
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                for(DataSnapshot eventSnapshot:dataSnapshot.getChildren()){
+                    Lugar event = eventSnapshot.getValue(Lugar.class);
+                    System.out.println(event.getName());
+                }/*
+                System.out.println("Error   "+dataSnapshot.exists());
+                Lugar post =  dataSnapshot.getValue(Lugar.class);
+                /*for(Lugar d :post){
+                    System.out.println("lugar  "+ d.getName());
+                }*/
+
+               /* // [START_EXCLUDE]
+                mAuthorView.setText(post.author);
+                mTitleView.setText(post.title);
+                mBodyView.setText(post.body);
+                // [END_EXCLUDE]*/
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+               /* // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // [START_EXCLUDE]
+                Toast.makeText(PostDetailActivity.this, "Failed to load post.",
+                        Toast.LENGTH_SHORT).show();
+                // [END_EXCLUDE]*/
+            }
+        };
+        mDatabase.addValueEventListener(postListener);
     }
 
     public AdaptadorInicio(String busqueda) {
         this.busqueda=busqueda;
     }
+
 
     @Override
     public int getItemCount() {
