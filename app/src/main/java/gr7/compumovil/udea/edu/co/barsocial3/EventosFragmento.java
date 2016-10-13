@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 /**
  * Created by r3tx on 6/10/16.
@@ -17,6 +18,8 @@ public class EventosFragmento extends Fragment{
     private LinearLayoutManager layoutManager;
     private AdaptadorInicio adaptador;
     public EventosFragmento(){}
+
+    private ProgressBar spinner;
     /*
         public InicioFragment(String busqueda) {
             //this.busqueda=busqueda;
@@ -31,8 +34,14 @@ public class EventosFragmento extends Fragment{
         reciclador = (RecyclerView) view.findViewById(R.id.reciclador);
         layoutManager = new LinearLayoutManager(getActivity());
         reciclador.setLayoutManager(layoutManager);
+        spinner=(ProgressBar) view.findViewById(R.id.progressBar);
+        spinner.setVisibility(View.VISIBLE);
 
-        adaptador = new AdaptadorInicio();
+        try {
+            adaptador = new AdaptadorInicio();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         reciclador.setAdapter(adaptador);
         reciclador.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
         return view;

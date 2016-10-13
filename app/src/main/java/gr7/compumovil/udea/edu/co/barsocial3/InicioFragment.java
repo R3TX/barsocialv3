@@ -35,7 +35,11 @@ public class InicioFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         reciclador.setLayoutManager(layoutManager);
 
-        adaptador = new AdaptadorInicio();
+        try {
+            adaptador = new AdaptadorInicio();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         reciclador.setAdapter(adaptador);
         reciclador.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
         return view;

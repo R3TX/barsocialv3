@@ -1,92 +1,77 @@
 package gr7.compumovil.udea.edu.co.barsocial3;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.Map;
 
-import java.util.List;
-
-import gr7.compumovil.udea.edu.co.barsocial3.DAO.Lugar;
 import gr7.compumovil.udea.edu.co.barsocial3.quemar.Comida;
 
 /**
  * Created by r3tx on 4/10/16.
  */
-public class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.ViewHolder> {
-    String busqueda;
-    private DatabaseReference mDatabase;
-    //private StorageReference storageRef;
-    //private FirebaseStorage storage;
-
-    public AdaptadorInicio(){
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("lugares");
+public class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.ViewHolder> implements ValueEventListener,OnSuccessListener<byte[]>,OnFailureListener {
+   /* String busqueda;
+    ArrayList lugares, imagenes;
+    ObtenerHelper obtenerHelper;
+*/
 
 
-      //  storage = FirebaseStorage.getInstance();
-        //storageRef = storage.getReferenceFromUrl("gs://barsocial-da3b2.appspot.com/");
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                for(DataSnapshot eventSnapshot:dataSnapshot.getChildren()){
-                    Lugar event = eventSnapshot.getValue(Lugar.class);
-                    System.out.println(event.getName());
-                }/*
-                System.out.println("Error   "+dataSnapshot.exists());
-                Lugar post =  dataSnapshot.getValue(Lugar.class);
-                /*for(Lugar d :post){
-                    System.out.println("lugar  "+ d.getName());
-                }*/
 
-               /* // [START_EXCLUDE]
-                mAuthorView.setText(post.author);
-                mTitleView.setText(post.title);
-                mBodyView.setText(post.body);
-                // [END_EXCLUDE]*/
-            }
+    public AdaptadorInicio() throws InterruptedException {
+       /* obtenerHelper = new ObtenerHelper();
+        lugares = obtenerHelper.getLugar();
+        imagenes=obtenerHelper.getImagen();
+        getItemCount();
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-               /* // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // [START_EXCLUDE]
-                Toast.makeText(PostDetailActivity.this, "Failed to load post.",
-                        Toast.LENGTH_SHORT).show();
-                // [END_EXCLUDE]*/
-            }
-        };
-        mDatabase.addValueEventListener(postListener);
+*/
+        System.out.println("p Entro al constructor");
+        ObtenerHelper();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("p salgo del constructor");
     }
 
-    public AdaptadorInicio(String busqueda) {
-        this.busqueda=busqueda;
-    }
+
+
+
 
 
     @Override
     public int getItemCount() {
-        return Comida.COMIDAS_POPULARES.size();
+        //System.out.println("\n\n\n estoy rodeado  "+ obtenerHelper.cantidad()+"\n\n\n\n\n");
+        System.out.println("p pido el tamaño");
 
+        return lugar.size();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        System.out.println("p creo el viewHolder");
 
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_lista_lugares, viewGroup, false);
@@ -95,21 +80,27 @@ public class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        System.out.println("p creo el conenido del view holder");
 
         //esto hay q modificarlo con la de lo nuestro
-       Comida item = Comida.COMIDAS_POPULARES.get(i);
+       //Comida item = Comida.COMIDAS_POPULARES.get(i);
+       // Lugar item = (Lugar) message.get("lugar");
+        Map<String,Object> item = (Map<String, Object>) lugar.get(i);
 
 
+/*
         Glide.with(viewHolder.itemView.getContext())
-                .load(item.getIdDrawable())
+                .load(imagen.get(i))
                 .centerCrop()
                 .into(viewHolder.imagenLugarMiniatura);
-        viewHolder.nombre.setText(item.getNombre());
-        viewHolder.pequeñaDescripcion.setText("$" + item.getPrecio());
+*/
+        viewHolder.nombre.setText(item.get("name").toString());
+        viewHolder.pequeñaDescripcion.setText( item.get("pequeñaDescripcion").toString());
 
 
 
     }
+
 
 
 
@@ -131,4 +122,65 @@ public class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.ViewHo
             estrella5 = (ImageView) v.findViewById(R.id.lista_lugar_estrella_5);
         }
     }
+
+
+
+    Map<String, Object> message;
+    ArrayList lugar,imagen;
+    private StorageReference storageRef;
+    private FirebaseStorage storage;
+    private DatabaseReference mDatabase;
+    //private byte[] imagen;
+
+    public void ObtenerHelper(){
+        lugar = new ArrayList();
+        imagen = new ArrayList();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("lugares");
+        Query bar =  mDatabase.orderByChild("categoria");
+
+
+
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReferenceFromUrl("gs://barsocial-da3b2.appspot.com/");
+
+        bar.addValueEventListener(this);
+    }
+
+    @Override
+    public void onFailure(@NonNull Exception e) {
+
+    }
+
+    @Override
+    public void onSuccess(byte[] bytes) {
+        imagen.add(bytes);
+        System.out.println("Imagenes  "+ imagen.size());
+
+    }
+
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        for(DataSnapshot eventSnapshot:dataSnapshot.getChildren()){
+            if(eventSnapshot.child("categoria").hasChild("Restaurante")){
+                message =(Map<String, Object>)eventSnapshot.getValue();
+                lugar.add(message);
+                //storageRef.child((String) message.get("imagenUrl")).getBytes(Long.MAX_VALUE).addOnSuccessListener(this).addOnFailureListener(this);
+            }
+        }
+
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+
+    }
+
+    public ArrayList getImagen() {
+        return imagen;
+    }
+
+    public ArrayList getLugar() {
+        return lugar;
+    }
+    public int cantidad(){return lugar.size();}
 }

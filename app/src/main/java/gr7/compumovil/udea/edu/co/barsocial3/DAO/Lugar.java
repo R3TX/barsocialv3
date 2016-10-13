@@ -1,6 +1,10 @@
 package gr7.compumovil.udea.edu.co.barsocial3.DAO;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by r3tx on 4/10/16.
@@ -133,4 +137,13 @@ public class Lugar {
     public void setReservacion(String reservacion) {
         this.reservacion = reservacion;
     }
-}
+
+
+
+    public Lugar(String lugar){
+        this.name  = lugar;
+    }
+    public Lugar(){}
+
+
+    }
