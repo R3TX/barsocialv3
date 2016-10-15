@@ -15,17 +15,21 @@ import android.view.ViewGroup;
 
 
 public class InicioFragment extends Fragment {
+    public final String TAG = "inicio fragment";
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
     private AdaptadorInicio adaptador;
-    //private String busqueda;
+    //ObtenerHelper obtenerHelper;
+    private String busqueda;
 
-    public InicioFragment(){}
-/*
-    public InicioFragment(String busqueda) {
-        //this.busqueda=busqueda;
+    public InicioFragment(){
+        //obtenerHelper = new ObtenerHelper();
     }
-*/
+
+    public InicioFragment(String busqueda) {
+        this.busqueda=busqueda;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,12 +38,9 @@ public class InicioFragment extends Fragment {
         reciclador = (RecyclerView) view.findViewById(R.id.reciclador);
         layoutManager = new LinearLayoutManager(getActivity());
         reciclador.setLayoutManager(layoutManager);
-
-        try {
-            adaptador = new AdaptadorInicio();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        adaptador = new AdaptadorInicio(busqueda);//obtenerHelper.getLugar());
+        //Log.e(TAG, "lugares: "+ obtenerHelper.getLugar().size());
+        //adaptador.notifyDataSetChanged();
         reciclador.setAdapter(adaptador);
         reciclador.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
         return view;

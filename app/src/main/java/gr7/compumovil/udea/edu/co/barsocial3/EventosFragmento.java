@@ -17,14 +17,15 @@ public class EventosFragmento extends Fragment{
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
     private AdaptadorInicio adaptador;
-    public EventosFragmento(){}
-
     private ProgressBar spinner;
+   // ObtenerHelper obtenerHelper = new ObtenerHelper();
+
     /*
         public InicioFragment(String busqueda) {
             //this.busqueda=busqueda;
         }
     */
+    public EventosFragmento(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,11 +38,10 @@ public class EventosFragmento extends Fragment{
         spinner=(ProgressBar) view.findViewById(R.id.progressBar);
         spinner.setVisibility(View.VISIBLE);
 
-        try {
-            adaptador = new AdaptadorInicio();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            adaptador = new AdaptadorInicio();//obtenerHelper.getLugar());
+        adaptador.notifyDataSetChanged();
+
+
         reciclador.setAdapter(adaptador);
         reciclador.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
         return view;

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().getItem(0).setChecked(true);
+        //navigationView.getMenu().getItem(0).setChecked(true);
         if (navigationView != null) {
             navigationView.setCheckedItem(0);
             onNavigationItemSelected(navigationView.getMenu().getItem(0));
@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,13 +90,14 @@ public class MainActivity extends AppCompatActivity
 
 
         if (id == R.id.Bares) {
-            fragmentoGenerico = new InicioFragment();
+            fragmentoGenerico = new InicioFragment("Bar");
+
             // Handle the camera action
         } else if (id == R.id.Cafe) {
-            fragmentoGenerico = new InicioFragment();
+            fragmentoGenerico = new InicioFragment("Cafe");
 
         } else if (id == R.id.Restaurantes) {
-            fragmentoGenerico = new InicioFragment();
+            fragmentoGenerico = new InicioFragment("Restaurante");
 
         } else if (id == R.id.Evento) {
             fragmentoGenerico = new FragmentoLugar();

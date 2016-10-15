@@ -64,6 +64,7 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
             pequeñaDescripcion = (TextView) v.findViewById(R.id.ingrediente_comida);
             precio = (TextView) v.findViewById(R.id.precio_comida);
             imagenLugarMiniatura = (ImageView) v.findViewById(R.id.miniatura_comida);
+
         }
     }
 }
