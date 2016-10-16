@@ -35,8 +35,8 @@ public class EventosFragmento extends Fragment{
         reciclador = (RecyclerView) view.findViewById(R.id.reciclador);
         layoutManager = new LinearLayoutManager(getActivity());
         reciclador.setLayoutManager(layoutManager);
-        spinner=(ProgressBar) view.findViewById(R.id.progressBar);
-        spinner.setVisibility(View.VISIBLE);
+        //spinner=(ProgressBar) view.findViewById(R.id.progressBar);
+        //spinner.setVisibility(View.VISIBLE);
 
             adaptador = new AdaptadorInicio();//obtenerHelper.getLugar());
         adaptador.notifyDataSetChanged();

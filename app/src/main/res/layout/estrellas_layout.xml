@@ -10,14 +10,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_star_full"
+        android:src="@drawable/ic_star_empty"
         />
     <ImageView
         android:id="@+id/lista_lugar_estrella_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_star_half"/>
+        android:src="@drawable/ic_star_empty"/>
     <ImageView
         android:id="@+id/lista_lugar_estrella_3"
         android:layout_width="wrap_content"
