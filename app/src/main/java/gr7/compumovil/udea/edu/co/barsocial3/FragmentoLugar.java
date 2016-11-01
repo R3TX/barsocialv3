@@ -11,9 +11,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 
 /*
@@ -24,12 +27,18 @@ public class FragmentoLugar extends Fragment {
     private TabLayout pestanas;
     private AppBarLayout appBar;
     private ViewPager viewPager;
+    Bundle b;
 
-    public FragmentoLugar() {}
+    public FragmentoLugar() {
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmento_paginado, container, false);
+
+        b = getArguments();
+
 
         if (savedInstanceState == null) {
             insertarTabs(container);
@@ -51,9 +60,13 @@ public class FragmentoLugar extends Fragment {
 
     private void poblarViewPager(ViewPager viewPager) {
         AdaptadorSecciones adapter = new AdaptadorSecciones(getFragmentManager());
-        adapter.addFragment(new FragmentoLugarInfo(), getString(R.string.titulo_tab__info_lugar));
-        adapter.addFragment(new ProductoFragment(), getString(R.string.titulo_tab_productos_lugar));
-        adapter.addFragment(new EventosFragmento(), getString(R.string.titulo_tab_eventos_lugar));
+        Fragment f = new FragmentoLugarInfo();
+        f.setArguments(b);
+        adapter.addFragment(f, getString(R.string.titulo_tab__info_lugar));
+        Fragment g=new ProductoFragment();
+        adapter.addFragment(g, getString(R.string.titulo_tab_productos_lugar));
+        Fragment h =new EventosFragmento();
+        adapter.addFragment(h, getString(R.string.titulo_tab_eventos_lugar));
         viewPager.setAdapter(adapter);
     }
 
