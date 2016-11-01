@@ -1,5 +1,6 @@
 package gr7.compumovil.udea.edu.co.barsocial3;
 
+import android.os.Bundle;
 import android.util.Log;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,29 +25,51 @@ public class ObtenerHelper extends Observable implements ValueEventListener {
     ArrayList lugar;
     private DatabaseReference mDatabase;
     String busqueda;
+    boolean evento;
+    Bundle bundle;
 
 
-    public ObtenerHelper(String Busqueda){
+    public ObtenerHelper(Bundle bundle){
 
 
+        evento = bundle.getBoolean("evento");
+        busqueda=bundle.getString("lugar");
         lugar = new ArrayList();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("lugares");
         /**implemnetar el query por el sevidor**/
-        Query bar =  mDatabase.orderByChild("categoria");
+        generarQuery();
 
-
-        this.busqueda = Busqueda;
-        bar.addValueEventListener(this);
     }
 
+    public void generarQuery(){
+
+
+        if(evento) {
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("eventos");
+            Query bar = mDatabase.orderByChild("name");
+            bar.addValueEventListener(this);
+        }else{
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("lugares");
+            Query bar = mDatabase.orderByChild("categoria");
+            bar.addValueEventListener(this);
+        }
+
+    }
 
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
 
         for(DataSnapshot eventSnapshot:dataSnapshot.getChildren()){
-                message =(Map<String, Object>)eventSnapshot.getValue();
+            if(!evento) {
+                if (eventSnapshot.child("categoria").hasChild(busqueda)) {
+                    message = (Map<String, Object>) eventSnapshot.getValue();
+                    lugar.add(message);
+                }
+            }else{
+                message = (Map<String, Object>) eventSnapshot.getValue();
                 lugar.add(message);
+            }
+
         }
         setChanged();
         notifyObservers();

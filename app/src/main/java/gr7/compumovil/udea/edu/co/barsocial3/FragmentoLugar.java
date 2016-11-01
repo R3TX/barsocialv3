@@ -60,13 +60,21 @@ public class FragmentoLugar extends Fragment {
 
     private void poblarViewPager(ViewPager viewPager) {
         AdaptadorSecciones adapter = new AdaptadorSecciones(getFragmentManager());
-        Fragment f = new FragmentoLugarInfo();
-        f.setArguments(b);
-        adapter.addFragment(f, getString(R.string.titulo_tab__info_lugar));
-        Fragment g=new ProductoFragment();
-        adapter.addFragment(g, getString(R.string.titulo_tab_productos_lugar));
-        Fragment h =new EventosFragmento();
-        adapter.addFragment(h, getString(R.string.titulo_tab_eventos_lugar));
+
+        Fragment fragmentoLugarInfo = new FragmentoLugarInfo();
+        fragmentoLugarInfo.setArguments(b);
+        adapter.addFragment(fragmentoLugarInfo, getString(R.string.titulo_tab__info_lugar));
+
+        Fragment productoFragment=new ProductoFragment();
+        productoFragment.setArguments(b);
+        adapter.addFragment(productoFragment, getString(R.string.titulo_tab_productos_lugar));
+
+        Fragment eventosFragmento =new EventosFragmento();
+        b.putString("lugar", "eventos");
+        b.putBoolean("evento", true);
+        eventosFragmento.setArguments(b);
+        adapter.addFragment(eventosFragmento, getString(R.string.titulo_tab_eventos_lugar));
+
         viewPager.setAdapter(adapter);
     }
 

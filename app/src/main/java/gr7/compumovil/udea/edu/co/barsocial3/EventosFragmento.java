@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 public class EventosFragmento extends Fragment{
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
-    private AdaptadorInicio adaptador;
+    private AdaptadorEventos adaptador;
     private ProgressBar spinner;
    // ObtenerHelper obtenerHelper = new ObtenerHelper();
 
@@ -38,7 +38,7 @@ public class EventosFragmento extends Fragment{
         //spinner=(ProgressBar) view.findViewById(R.id.progressBar);
         //spinner.setVisibility(View.VISIBLE);
 
-            adaptador = new AdaptadorInicio();//obtenerHelper.getLugar());
+            adaptador = new AdaptadorEventos(getArguments());//obtenerHelper.getLugar());
         adaptador.notifyDataSetChanged();
 
 

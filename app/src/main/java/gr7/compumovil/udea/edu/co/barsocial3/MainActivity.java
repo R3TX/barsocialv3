@@ -110,26 +110,36 @@ public class MainActivity extends AppCompatActivity
         Fragment fragmentoGenerico = null;
         FragmentManager fragmentManager = getSupportFragmentManager();
         int id = item.getItemId();
+        Bundle info = new Bundle();
 
 
 
         if (id == R.id.Bares) {
-            fragmentoGenerico = new InicioFragment("Bar");
+            info.putString("lugar", "Bar");
+            info.putBoolean("evento", false);
+            fragmentoGenerico = new InicioFragment();
 
             // Handle the camera action
         } else if (id == R.id.Cafe) {
-            fragmentoGenerico = new InicioFragment("Cafe");
+            info.putString("lugar", "Cafe");
+            info.putBoolean("evento", false);
+            fragmentoGenerico = new InicioFragment();
 
         } else if (id == R.id.Restaurantes) {
-            fragmentoGenerico = new InicioFragment("Restaurante");
+            info.putString("lugar", "Restaurante");
+            info.putBoolean("evento", false);
+            fragmentoGenerico = new InicioFragment();
 
         } else if (id == R.id.Evento) {
-            fragmentoGenerico = new InicioFragment("eventos");
+            info.putString("lugar", "eventos");
+            info.putBoolean("evento", true);
+            fragmentoGenerico = new EventosFragmento();
             //fragmentoGenerico = new FragmentoLugar();
 
         }
 
         if (fragmentoGenerico != null) {
+            fragmentoGenerico.setArguments(info);
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.content_main, fragmentoGenerico)

@@ -3,32 +3,16 @@ package gr7.compumovil.udea.edu.co.barsocial3;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.api.model.StringList;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -38,37 +22,19 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import gr7.compumovil.udea.edu.co.barsocial3.DAO.Lugar;
-import gr7.compumovil.udea.edu.co.barsocial3.quemar.Comida;
-
-import static java.lang.Integer.compare;
-
 /**
  * Created by r3tx on 4/10/16.
  */
-class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.ViewHolder> implements Observer {
+class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.ViewHolder> implements Observer {
     public final static String TAG = "Adaptador Inicio";
 
     ObtenerHelper obtenerHelper;
     static ArrayList lugar,imagen;
-    public AdaptadorInicio(){//ArrayList obtener){
-        obtenerHelper = new ObtenerHelper("Bar");
+
+    public AdaptadorEventos(Bundle bundle){//ArrayList obtener){
+        obtenerHelper = new ObtenerHelper(bundle);
         obtenerHelper.addObserver(this);
         lugar=obtenerHelper.getLugar();
-        //imagen=obtenerHelper.getImagen();
-
-
-
-    }
-
-    public AdaptadorInicio(String busqueda){//ArrayList obtener){
-        obtenerHelper = new ObtenerHelper(busqueda);
-        obtenerHelper.addObserver(this);
-        lugar=obtenerHelper.getLugar();
-        //imagen=obtenerHelper.getImagen();
-
-
-
     }
 
 
@@ -102,8 +68,8 @@ class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.ViewHolder> i
                 .centerCrop()
                 .into(viewHolder.imagenLugarMiniatura);
         viewHolder.nombre.setText(item.get("name").toString());
-        viewHolder.pequeñaDescripcion.setText( item.get("pequeñaDescripcion").toString());
-        viewHolder.setStarts(Double.valueOf(item.get("rate").toString()));
+        viewHolder.pequeñaDescripcion.setText( item.get("descripcion").toString());
+
 
 
     }
