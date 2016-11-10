@@ -10,7 +10,7 @@
     android:orientation="vertical"
     android:padding="@dimen/espacio_norma_1"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    tools:context="gr7.compumovil.udea.edu.co.barsocial3.FragmentoLugarInfo">
+    tools:context="gr7.compumovil.udea.edu.co.barsocial3.lugar.FragmentoLugarInfo">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

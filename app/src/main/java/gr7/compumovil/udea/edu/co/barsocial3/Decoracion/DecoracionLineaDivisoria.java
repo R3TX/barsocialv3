@@ -1,4 +1,4 @@
-package gr7.compumovil.udea.edu.co.barsocial3;
+package gr7.compumovil.udea.edu.co.barsocial3.Decoracion;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import gr7.compumovil.udea.edu.co.barsocial3.R;
 
 
 /**

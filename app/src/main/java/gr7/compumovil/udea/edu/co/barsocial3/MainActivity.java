@@ -1,14 +1,8 @@
 package gr7.compumovil.udea.edu.co.barsocial3;
 
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,7 +15,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import static gr7.compumovil.udea.edu.co.barsocial3.R.styleable.NavigationView;
+import gr7.compumovil.udea.edu.co.barsocial3.evento.EventosFragmento;
+import gr7.compumovil.udea.edu.co.barsocial3.lugar.MainLugarFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -117,18 +112,18 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.Bares) {
             info.putString("lugar", "Bar");
             info.putBoolean("evento", false);
-            fragmentoGenerico = new InicioFragment();
+            fragmentoGenerico = new MainLugarFragment();
 
             // Handle the camera action
         } else if (id == R.id.Cafe) {
             info.putString("lugar", "Cafe");
             info.putBoolean("evento", false);
-            fragmentoGenerico = new InicioFragment();
+            fragmentoGenerico = new MainLugarFragment();
 
         } else if (id == R.id.Restaurantes) {
             info.putString("lugar", "Restaurante");
             info.putBoolean("evento", false);
-            fragmentoGenerico = new InicioFragment();
+            fragmentoGenerico = new MainLugarFragment();
 
         } else if (id == R.id.Evento) {
             info.putString("lugar", "eventos");

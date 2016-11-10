@@ -1,9 +1,9 @@
-package gr7.compumovil.udea.edu.co.barsocial3.quemar;
+package gr7.compumovil.udea.edu.co.barsocial3.producto;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
-import gr7.compumovil.udea.edu.co.barsocial3.R;
+        import gr7.compumovil.udea.edu.co.barsocial3.R;
 
 /**
  * Created by r3tx on 6/10/16.

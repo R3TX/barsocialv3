@@ -1,4 +1,4 @@
-package gr7.compumovil.udea.edu.co.barsocial3;
+package gr7.compumovil.udea.edu.co.barsocial3.lugar;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,17 +11,21 @@ import android.view.ViewGroup;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import gr7.compumovil.udea.edu.co.barsocial3.Decoracion.DecoracionLineaDivisoria;
+import gr7.compumovil.udea.edu.co.barsocial3.R;
+import gr7.compumovil.udea.edu.co.barsocial3.lugar.AdaptadorLugares;
 
-public class InicioFragment extends Fragment {
+
+public class MainLugarFragment extends Fragment {
     public final String TAG = "inicio fragment";
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
     private AdaptadorLugares adaptador;
-    //ObtenerHelper obtenerHelper;
+    //ObtenerLugares obtenerLugares;
     private String busqueda;
 
-    public InicioFragment(){
-        //obtenerHelper = new ObtenerHelper();
+    public MainLugarFragment(){
+        //obtenerLugares = new ObtenerLugares();
     }
 
     @Override

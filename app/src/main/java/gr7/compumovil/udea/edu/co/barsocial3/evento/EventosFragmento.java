@@ -1,4 +1,4 @@
-package gr7.compumovil.udea.edu.co.barsocial3;
+package gr7.compumovil.udea.edu.co.barsocial3.evento;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import gr7.compumovil.udea.edu.co.barsocial3.Decoracion.DecoracionLineaDivisoria;
+import gr7.compumovil.udea.edu.co.barsocial3.R;
+
 /**
  * Created by r3tx on 6/10/16.
  */
@@ -18,10 +21,10 @@ public class EventosFragmento extends Fragment{
     private LinearLayoutManager layoutManager;
     private AdaptadorEventos adaptador;
     private ProgressBar spinner;
-   // ObtenerHelper obtenerHelper = new ObtenerHelper();
+   // ObtenerLugares obtenerEventos = new ObtenerLugares();
 
     /*
-        public InicioFragment(String busqueda) {
+        public MainLugarFragment(String busqueda) {
             //this.busqueda=busqueda;
         }
     */
@@ -38,7 +41,7 @@ public class EventosFragmento extends Fragment{
         //spinner=(ProgressBar) view.findViewById(R.id.progressBar);
         //spinner.setVisibility(View.VISIBLE);
 
-            adaptador = new AdaptadorEventos(getArguments());//obtenerHelper.getLugar());
+            adaptador = new AdaptadorEventos(getArguments());//obtenerEventos.getEvento());
         adaptador.notifyDataSetChanged();
 
 

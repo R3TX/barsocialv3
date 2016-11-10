@@ -1,4 +1,4 @@
-package gr7.compumovil.udea.edu.co.barsocial3;
+package gr7.compumovil.udea.edu.co.barsocial3.producto;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +9,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import gr7.compumovil.udea.edu.co.barsocial3.quemar.Comida;
+import gr7.compumovil.udea.edu.co.barsocial3.R;
+import gr7.compumovil.udea.edu.co.barsocial3.producto.Comida;
 
 /**
  * Created by r3tx on 4/10/16.

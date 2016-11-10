@@ -1,4 +1,4 @@
-package gr7.compumovil.udea.edu.co.barsocial3;
+package gr7.compumovil.udea.edu.co.barsocial3.lugar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
@@ -22,19 +23,33 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import gr7.compumovil.udea.edu.co.barsocial3.ContenedorActivity;
+import gr7.compumovil.udea.edu.co.barsocial3.R;
+
 /**
  * Created by r3tx on 4/10/16.
  */
-class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.ViewHolder> implements Observer {
+public class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.ViewHolder> implements Observer {
     public final static String TAG = "Adaptador Inicio";
 
-    ObtenerHelper obtenerHelper;
+    ObtenerLugares obtenerLugares;
     static ArrayList lugar,imagen;
+   /*
+    public AdaptadorLugares(){//ArrayList obtener){
+        obtenerLugares = new ObtenerLugares("Bar");
+        obtenerLugares.addObserver(this);
+        lugar=obtenerLugares.getEvento();
+        //imagen=obtenerLugares.getImagen();
+    }*/
 
-    public AdaptadorEventos(Bundle bundle){//ArrayList obtener){
-        obtenerHelper = new ObtenerHelper(bundle);
-        obtenerHelper.addObserver(this);
-        lugar=obtenerHelper.getLugar();
+    public AdaptadorLugares(Bundle bundle){//ArrayList obtener){
+        obtenerLugares = new ObtenerLugares(bundle);
+        obtenerLugares.addObserver(this);
+        lugar= obtenerLugares.getLugar();
+        //imagen=obtenerLugares.getImagen();
+
+
+
     }
 
 
@@ -68,8 +83,8 @@ class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.ViewHolder>
                 .centerCrop()
                 .into(viewHolder.imagenLugarMiniatura);
         viewHolder.nombre.setText(item.get("name").toString());
-        viewHolder.pequeñaDescripcion.setText( item.get("descripcion").toString());
-
+        viewHolder.pequeñaDescripcion.setText( item.get("pequeñaDescripcion").toString());
+        viewHolder.setStarts(Double.valueOf(item.get("rate").toString()));
 
 
     }
@@ -148,10 +163,11 @@ class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.ViewHolder>
         public void onClick(View view) {
            // Bundle b = new Bundle();
             //b.putParcelable("datos", (Parcelable) lugar.get(getPosition()));
-            Intent i = new Intent(context, OtherActivity.class);
+            Intent i = new Intent(context, ContenedorActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle b = new Bundle();
             b.putSerializable("datos",(Serializable) lugar.get(getPosition()) );
+            b.putBoolean("evento",false);
             i.putExtra("datos",b);
             context.getApplicationContext().startActivity(i);
         }

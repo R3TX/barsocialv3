@@ -1,4 +1,4 @@
-package gr7.compumovil.udea.edu.co.barsocial3;
+package gr7.compumovil.udea.edu.co.barsocial3.evento;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
@@ -23,30 +22,22 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import gr7.compumovil.udea.edu.co.barsocial3.ContenedorActivity;
+import gr7.compumovil.udea.edu.co.barsocial3.R;
+
 /**
  * Created by r3tx on 4/10/16.
  */
-class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.ViewHolder> implements Observer {
-    public final static String TAG = "Adaptador Inicio";
+class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.ViewHolder> implements Observer {
+    public final static String TAG = "AdaptadorEventos";
 
-    ObtenerHelper obtenerHelper;
-    static ArrayList lugar,imagen;
-   /*
-    public AdaptadorLugares(){//ArrayList obtener){
-        obtenerHelper = new ObtenerHelper("Bar");
-        obtenerHelper.addObserver(this);
-        lugar=obtenerHelper.getLugar();
-        //imagen=obtenerHelper.getImagen();
-    }*/
+    ObtenerEventos obtenerEventos;
+    static ArrayList evento;
 
-    public AdaptadorLugares(Bundle bundle){//ArrayList obtener){
-        obtenerHelper = new ObtenerHelper(bundle);
-        obtenerHelper.addObserver(this);
-        lugar=obtenerHelper.getLugar();
-        //imagen=obtenerHelper.getImagen();
-
-
-
+    public AdaptadorEventos(Bundle bundle){
+        obtenerEventos = new ObtenerEventos(bundle);
+        obtenerEventos.addObserver(this);
+        evento = obtenerEventos.getEvento();
     }
 
 
@@ -56,7 +47,7 @@ class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return lugar.size();
+        return evento.size();
     }
 
     @Override
@@ -68,11 +59,7 @@ class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.ViewHolder>
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        //esto hay q modificarlo con la de lo nuestro
-       //Comida item = Comida.COMIDAS_POPULARES.get(i);
-       // Lugar item = (Lugar) message.get("lugar");
-//        Log.e(TAG,imagen.get(i).toString());
-        Map<String,Object> item = (Map<String, Object>) lugar.get(i);
+        Map<String,Object> item = (Map<String, Object>) evento.get(i);
         StorageReference storageReference = FirebaseStorage.getInstance().getReference(item.get("imagenUrl").toString());
         Glide.with(viewHolder.itemView.getContext())
                 .using(new FirebaseImageLoader())
@@ -80,8 +67,8 @@ class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.ViewHolder>
                 .centerCrop()
                 .into(viewHolder.imagenLugarMiniatura);
         viewHolder.nombre.setText(item.get("name").toString());
-        viewHolder.pequeñaDescripcion.setText( item.get("pequeñaDescripcion").toString());
-        viewHolder.setStarts(Double.valueOf(item.get("rate").toString()));
+        viewHolder.pequeñaDescripcion.setText( item.get("descripcion").toString());
+
 
 
     }
@@ -158,12 +145,13 @@ class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.ViewHolder>
 
         @Override
         public void onClick(View view) {
-           // Bundle b = new Bundle();
-            //b.putParcelable("datos", (Parcelable) lugar.get(getPosition()));
-            Intent i = new Intent(context, OtherActivity.class);
+           // Bundle bundle = new Bundle();
+            //bundle.putParcelable("datos", (Parcelable) evento.get(getPosition()));
+            Intent i = new Intent(context, ContenedorActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle b = new Bundle();
-            b.putSerializable("datos",(Serializable) lugar.get(getPosition()) );
+            b.putSerializable("datos",(Serializable) evento.get(getPosition()) );
+            b.putBoolean("evento",true);
             i.putExtra("datos",b);
             context.getApplicationContext().startActivity(i);
         }

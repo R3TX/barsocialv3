@@ -1,4 +1,4 @@
-package gr7.compumovil.udea.edu.co.barsocial3;
+package gr7.compumovil.udea.edu.co.barsocial3.lugar;
 
 import android.content.Context;
 import android.net.Uri;
@@ -17,6 +17,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Map;
+
+import gr7.compumovil.udea.edu.co.barsocial3.R;
 
 
 /**

@@ -1,4 +1,4 @@
-package gr7.compumovil.udea.edu.co.barsocial3;
+package gr7.compumovil.udea.edu.co.barsocial3.evento;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,25 +11,25 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+
+import gr7.compumovil.udea.edu.co.barsocial3.R;
+import gr7.compumovil.udea.edu.co.barsocial3.lugar.MainLugarFragment;
 
 
 /*
-Fragmento que contiene la informacion del lugar
+Fragmento que contiene la informacion del evento
  */
 
-public class FragmentoLugar extends Fragment {
+public class FragmentoEvento extends Fragment {
     private TabLayout pestanas;
     private AppBarLayout appBar;
     private ViewPager viewPager;
-    Bundle b;
+    Bundle bundle;
 
-    public FragmentoLugar() {
+    public FragmentoEvento() {
 
     }
     @Override
@@ -37,7 +37,7 @@ public class FragmentoLugar extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmento_paginado, container, false);
 
-        b = getArguments();
+        bundle = getArguments();
 
 
         if (savedInstanceState == null) {
@@ -61,19 +61,14 @@ public class FragmentoLugar extends Fragment {
     private void poblarViewPager(ViewPager viewPager) {
         AdaptadorSecciones adapter = new AdaptadorSecciones(getFragmentManager());
 
-        Fragment fragmentoLugarInfo = new FragmentoLugarInfo();
-        fragmentoLugarInfo.setArguments(b);
-        adapter.addFragment(fragmentoLugarInfo, getString(R.string.titulo_tab__info_lugar));
+        Fragment fragmentoEventoInfo = new FragmentoEventoInfo();
+        fragmentoEventoInfo.setArguments(bundle);
+        adapter.addFragment(fragmentoEventoInfo, getString(R.string.titulo_tab__info_lugar));
 
-        Fragment productoFragment=new ProductoFragment();
-        productoFragment.setArguments(b);
-        adapter.addFragment(productoFragment, getString(R.string.titulo_tab_productos_lugar));
 
-        Fragment eventosFragmento =new EventosFragmento();
-        b.putString("lugar", "eventos");
-        b.putBoolean("evento", true);
-        eventosFragmento.setArguments(b);
-        adapter.addFragment(eventosFragmento, getString(R.string.titulo_tab_eventos_lugar));
+        Fragment fragmentoLugarAsiste =new MainLugarFragment();
+        fragmentoLugarAsiste.setArguments(bundle);
+        adapter.addFragment(fragmentoLugarAsiste, getString(R.string.titulo_tab_lugar_eventos));
 
         viewPager.setAdapter(adapter);
     }
@@ -97,7 +92,7 @@ public class FragmentoLugar extends Fragment {
         }
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position) {
+        public Fragment getItem(int position) {
             return fragmentos.get(position);
         }
 
@@ -106,7 +101,7 @@ public class FragmentoLugar extends Fragment {
             return fragmentos.size();
         }
 
-        public void addFragment(android.support.v4.app.Fragment fragment, String title) {
+        public void addFragment(Fragment fragment, String title) {
             fragmentos.add(fragment);
             titulosFragmentos.add(title);
         }
