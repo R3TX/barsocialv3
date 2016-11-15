@@ -21,7 +21,7 @@ import gr7.compumovil.udea.edu.co.barsocial3.DAO.Lugar;
  */
 public class ObtenerLugares extends Observable implements ValueEventListener {
     public final String TAG="ObtenerLugares";
-    Map<String, Object> message;
+    Map<String, Object> message, ensayoBusqueda;
     ArrayList lugar;
     private DatabaseReference mDatabase;
     String busqueda;
@@ -33,7 +33,12 @@ public class ObtenerLugares extends Observable implements ValueEventListener {
 
 
         evento = bundle.getBoolean("evento");
-        busqueda=bundle.getString("lugar");
+        if(!evento) {
+            busqueda = bundle.getString("lugar");
+        }else{
+            Map<String, Object>ensayoBusqueda2 = (Map<String, Object>) bundle.getSerializable("datos");
+            ensayoBusqueda = (Map<String, Object>) ensayoBusqueda2.get("lugar");
+        }
         lugar = new ArrayList();
         /**implemnetar el query por el sevidor**/
         generarQuery();
@@ -42,16 +47,10 @@ public class ObtenerLugares extends Observable implements ValueEventListener {
 
     public void generarQuery(){
 
-
-        if(evento) {
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("eventos");
-            Query bar = mDatabase.orderByChild("name");
-            bar.addValueEventListener(this);
-        }else{
             mDatabase = FirebaseDatabase.getInstance().getReference().child("lugares");
             Query bar = mDatabase.orderByChild("categoria");
             bar.addValueEventListener(this);
-        }
+
 
     }
 
@@ -66,8 +65,12 @@ public class ObtenerLugares extends Observable implements ValueEventListener {
                     lugar.add(message);
                 }
             }else{
-                message = (Map<String, Object>) eventSnapshot.getValue();
-                lugar.add(message);
+                String key = eventSnapshot.getKey();
+                Log.e(TAG,key);
+                if(ensayoBusqueda.containsKey(key)) {
+                    message = (Map<String, Object>) eventSnapshot.getValue();
+                    lugar.add(message);
+                }
             }
 
         }

@@ -161,14 +161,12 @@ public class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.View
 
         @Override
         public void onClick(View view) {
-           // Bundle b = new Bundle();
-            //b.putParcelable("datos", (Parcelable) lugar.get(getPosition()));
             Intent i = new Intent(context, ContenedorActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Bundle b = new Bundle();
-            b.putSerializable("datos",(Serializable) lugar.get(getPosition()) );
-            b.putBoolean("evento",false);
-            i.putExtra("datos",b);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("datos",(Serializable) lugar.get(getPosition()) );
+            bundle.putBoolean("evento",false);
+            i.putExtra("datos",bundle);
             context.getApplicationContext().startActivity(i);
         }
     }

@@ -67,6 +67,7 @@ public class FragmentoEvento extends Fragment {
 
 
         Fragment fragmentoLugarAsiste =new MainLugarFragment();
+
         fragmentoLugarAsiste.setArguments(bundle);
         adapter.addFragment(fragmentoLugarAsiste, getString(R.string.titulo_tab_lugar_eventos));
 

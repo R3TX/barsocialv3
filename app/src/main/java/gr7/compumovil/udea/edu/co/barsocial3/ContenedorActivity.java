@@ -27,15 +27,17 @@ public class ContenedorActivity extends AppCompatActivity {
 
         /**Pensar seriamente si permitir el drawlabe aca**/
         //Map<String, Object> message = (Map<String, Object>) getIntent().getSerializableExtra("datos");
+        Bundle bundle =  getIntent().getBundleExtra("datos");
         Fragment fragmentoGenerico;
-        if(getIntent().getBundleExtra("datos").getBoolean("evento")){
+        boolean evento =bundle.getBoolean("evento");
+        if(evento){
             fragmentoGenerico= new FragmentoEvento();
         }else{
             fragmentoGenerico= new FragmentoLugar();
         }
 
 
-        fragmentoGenerico.setArguments(getIntent().getBundleExtra("datos"));
+        fragmentoGenerico.setArguments(bundle);
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager
                 .beginTransaction()

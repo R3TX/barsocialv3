@@ -33,8 +33,6 @@ public class MainLugarFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
 
-        DatabaseReference ref =FirebaseDatabase.getInstance().getReference().child("lugares");
-
         reciclador = (RecyclerView) view.findViewById(R.id.reciclador);
         reciclador.setHasFixedSize(true);
 

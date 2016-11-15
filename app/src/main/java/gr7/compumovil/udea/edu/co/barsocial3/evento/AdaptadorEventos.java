@@ -53,7 +53,7 @@ class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.ViewHolder>
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_lista_lugares, viewGroup, false);
+                .inflate(R.layout.item_lista_eventos, viewGroup, false);
         return new ViewHolder(v);
     }
 
@@ -86,7 +86,7 @@ class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.ViewHolder>
         public Context context;
         public TextView nombre;
         public TextView pequeñaDescripcion;
-        public ImageView imagenLugarMiniatura,estrella1,estrella2,estrella3,estrella4,estrella5;
+        public ImageView imagenLugarMiniatura;
 
         public ViewHolder(View v) {
             super(v);
@@ -94,65 +94,18 @@ class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.ViewHolder>
             nombre = (TextView) v.findViewById(R.id.lista_lugar_nombre);
             pequeñaDescripcion = (TextView) v.findViewById(R.id.lista_lugar_pequeña_descripcion);
             imagenLugarMiniatura = (ImageView) v.findViewById(R.id.lista_lugar_miniatura);
-            estrella1 = (ImageView) v.findViewById(R.id.lista_lugar_estrella_1);
-            estrella2 = (ImageView) v.findViewById(R.id.lista_lugar_estrella_2);
-            estrella3 = (ImageView) v.findViewById(R.id.lista_lugar_estrella_3);
-            estrella4 = (ImageView) v.findViewById(R.id.lista_lugar_estrella_4);
-            estrella5 = (ImageView) v.findViewById(R.id.lista_lugar_estrella_5);
             v.setClickable(true);
             v.setOnClickListener(this);
-        }
-        public void setStarts(double rate){
-
-            ImageView[] estrellas ={estrella1,estrella2,estrella3,estrella4,estrella5};
-            for(int u = 0; u<5;u++){
-                estrellas[u].setImageResource(R.drawable.ic_star_empty);
-            }
-            String r = Double.toString(rate);
-            String[] s=r.split("");
-            int entero = Integer.parseInt(s[1]);
-
-            int decimal = Integer.parseInt(s[3]);
-
-            int i=0;
-            while( i<entero){
-
-                estrellas[i].setImageResource(R.drawable.ic_star_full);
-                i++;
-            }
-            if(entero==0 ){
-                if(decimal>0){
-                    estrellas[0].setImageResource(R.drawable.ic_star_half);
-                }else if(decimal==0){
-                    estrellas[0].setImageResource(R.drawable.ic_star_empty);
-                }
-            }
-            if(entero==5){
-                if(decimal>0){
-                    estrellas[entero-1].setImageResource(R.drawable.ic_star_half);
-                }else if(decimal==0){
-                    estrellas[entero-1].setImageResource(R.drawable.ic_star_full);
-                }
-            }
-            if(entero!=5 && entero !=0){
-                if(decimal>0){
-                    estrellas[entero].setImageResource(R.drawable.ic_star_half);
-                }
-            }
-
-
         }
 
         @Override
         public void onClick(View view) {
-           // Bundle bundle = new Bundle();
-            //bundle.putParcelable("datos", (Parcelable) evento.get(getPosition()));
             Intent i = new Intent(context, ContenedorActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Bundle b = new Bundle();
-            b.putSerializable("datos",(Serializable) evento.get(getPosition()) );
-            b.putBoolean("evento",true);
-            i.putExtra("datos",b);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("datos",(Serializable) evento.get(getPosition()) );
+            bundle.putBoolean("evento",true);
+            i.putExtra("datos",bundle);
             context.getApplicationContext().startActivity(i);
         }
     }

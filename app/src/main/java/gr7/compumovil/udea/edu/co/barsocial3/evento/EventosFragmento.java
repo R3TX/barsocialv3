@@ -20,19 +20,13 @@ public class EventosFragmento extends Fragment{
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
     private AdaptadorEventos adaptador;
-    private ProgressBar spinner;
-   // ObtenerLugares obtenerEventos = new ObtenerLugares();
 
-    /*
-        public MainLugarFragment(String busqueda) {
-            //this.busqueda=busqueda;
-        }
-    */
     public EventosFragmento(){}
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.e("creo vista adaptador", "la puta la vista del adaptador");
+
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
 
         reciclador = (RecyclerView) view.findViewById(R.id.reciclador);

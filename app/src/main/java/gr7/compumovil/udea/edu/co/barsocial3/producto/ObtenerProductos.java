@@ -19,7 +19,7 @@ import java.util.Observable;
 public class ObtenerProductos extends Observable implements ValueEventListener {
     public final String TAG="ObtenerLugares";
     Map<String, Object> message;
-    ArrayList lugar;
+    ArrayList comida;
     private DatabaseReference mDatabase;
     String busqueda;
     boolean evento;
@@ -30,8 +30,8 @@ public class ObtenerProductos extends Observable implements ValueEventListener {
 
 
         evento = bundle.getBoolean("evento");
-        busqueda=bundle.getString("lugar");
-        lugar = new ArrayList();
+        busqueda=bundle.getString("comida");
+        comida = new ArrayList();
         /**implemnetar el query por el sevidor**/
         generarQuery();
 
@@ -60,11 +60,11 @@ public class ObtenerProductos extends Observable implements ValueEventListener {
             if(!evento) {
                 if (eventSnapshot.child("categoria").hasChild(busqueda)) {
                     message = (Map<String, Object>) eventSnapshot.getValue();
-                    lugar.add(message);
+                    comida.add(message);
                 }
             }else{
                 message = (Map<String, Object>) eventSnapshot.getValue();
-                lugar.add(message);
+                comida.add(message);
             }
 
         }
@@ -77,8 +77,8 @@ public class ObtenerProductos extends Observable implements ValueEventListener {
     public void onCancelled(DatabaseError databaseError) {
 
     }
-    public ArrayList getLugar() {
-        return lugar;
+    public ArrayList getComida() {
+        return comida;
     }
-    public int cantidad(){return lugar.size();}
+    public int cantidad(){return comida.size();}
 }
