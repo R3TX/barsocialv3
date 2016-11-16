@@ -1,5 +1,6 @@
 package gr7.compumovil.udea.edu.co.barsocial3.producto;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,23 +9,33 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import gr7.compumovil.udea.edu.co.barsocial3.R;
-import gr7.compumovil.udea.edu.co.barsocial3.producto.Comida;
 
 /**
  * Created by r3tx on 4/10/16.
  */
-public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.ViewHolder> {
-    String busqueda;
+public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.ViewHolder> implements Observer{
+    ObtenerProductos obtenerProductos;
+    ArrayList productos;
 
-    public AdaptadorProductos(String busqueda) {
-        this.busqueda=busqueda;
+    public AdaptadorProductos(Bundle bundle) {
+        obtenerProductos = new ObtenerProductos(bundle);
+        obtenerProductos.addObserver(this);
+        productos = obtenerProductos.getProductos();
     }
 
     @Override
     public int getItemCount() {
-       return Comida.COMIDAS_POPULARES.size();
+       return productos.size();
     }
 
     @Override
@@ -38,19 +49,25 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
         //esto hay q modificarlo con la de lo nuestro
-       Comida item = Comida.COMIDAS_POPULARES.get(i);
+        Map<String,Object> item = (Map<String, Object>) productos.get(i);
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(item.get("imagenUrl").toString());
 
         Glide.with(viewHolder.itemView.getContext())
-                .load(item.getIdDrawable())
+                .using(new FirebaseImageLoader())
+                .load(storageReference)//"https://firebasestorage.googleapis.com/v0/b/barsocial-da3b2.appspot.com/o/cafe.jpg?alt=media&token=0f12fed5-e7d8-48d5-b3c4-dd6a5401a9e6")//imagen.get(i))
                 .centerCrop()
                 .into(viewHolder.imagenLugarMiniatura);
-        viewHolder.nombre.setText(item.getNombre());
-        viewHolder.precio.setText("$" + item.getPrecio());
-        viewHolder.pequeñaDescripcion.setText("Algunos ingredientes van listados aca");
+        viewHolder.nombre.setText(item.get("name").toString());
+        viewHolder.precio.setText("$" + item.get("precio").toString());
+        viewHolder.pequeñaDescripcion.setText(item.get("ingredientes").toString());
 
 
     }
 
+    @Override
+    public void update(Observable observable, Object o) {
+        notifyDataSetChanged();
+    }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

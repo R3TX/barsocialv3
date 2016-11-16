@@ -37,7 +37,7 @@ public class ProductoFragment extends Fragment {
         linearLayout = new LinearLayoutManager(getActivity());
         reciclador.setLayoutManager(linearLayout);
 
-        AdaptadorProductos adaptador = new AdaptadorProductos("null");
+        AdaptadorProductos adaptador = new AdaptadorProductos(getArguments());
         reciclador.setAdapter(adaptador);
         reciclador.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
 

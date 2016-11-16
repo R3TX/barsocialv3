@@ -28,7 +28,7 @@ public class FragmentoLugar extends Fragment {
     private TabLayout pestanas;
     private AppBarLayout appBar;
     private ViewPager viewPager;
-    Bundle b;
+    Bundle bundle;
 
     public FragmentoLugar() {
 
@@ -38,7 +38,7 @@ public class FragmentoLugar extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmento_paginado, container, false);
 
-        b = getArguments();
+        bundle = getArguments();
 
 
         if (savedInstanceState == null) {
@@ -63,17 +63,17 @@ public class FragmentoLugar extends Fragment {
         AdaptadorSecciones adapter = new AdaptadorSecciones(getFragmentManager());
 
         Fragment fragmentoLugarInfo = new FragmentoLugarInfo();
-        fragmentoLugarInfo.setArguments(b);
+        fragmentoLugarInfo.setArguments(bundle);
         adapter.addFragment(fragmentoLugarInfo, getString(R.string.titulo_tab__info_lugar));
 
         Fragment productoFragment=new ProductoFragment();
-        productoFragment.setArguments(b);
+        productoFragment.setArguments(bundle);
         adapter.addFragment(productoFragment, getString(R.string.titulo_tab_productos_lugar));
 
         Fragment eventosFragmento =new EventosFragmento();
-        b.putString("lugar", "eventos");
-        b.putBoolean("evento", true);
-        eventosFragmento.setArguments(b);
+        bundle.putString("lugar", "eventos");
+        bundle.putBoolean("evento", true);
+        eventosFragmento.setArguments(bundle);
         adapter.addFragment(eventosFragmento, getString(R.string.titulo_tab_eventos_lugar));
 
         viewPager.setAdapter(adapter);

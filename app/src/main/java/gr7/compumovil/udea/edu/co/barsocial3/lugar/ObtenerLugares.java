@@ -37,7 +37,7 @@ public class ObtenerLugares extends Observable implements ValueEventListener {
             busqueda = bundle.getString("lugar");
         }else{
             Map<String, Object>ensayoBusqueda2 = (Map<String, Object>) bundle.getSerializable("datos");
-            ensayoBusqueda = (Map<String, Object>) ensayoBusqueda2.get("lugar");
+            ensayoBusqueda = (Map<String, Object>) ensayoBusqueda2.get("lugar");  //obtengo el "lugar", los cuales asisten al evento
         }
         lugar = new ArrayList();
         /**implemnetar el query por el sevidor**/
@@ -66,7 +66,6 @@ public class ObtenerLugares extends Observable implements ValueEventListener {
                 }
             }else{
                 String key = eventSnapshot.getKey();
-                Log.e(TAG,key);
                 if(ensayoBusqueda.containsKey(key)) {
                     message = (Map<String, Object>) eventSnapshot.getValue();
                     lugar.add(message);

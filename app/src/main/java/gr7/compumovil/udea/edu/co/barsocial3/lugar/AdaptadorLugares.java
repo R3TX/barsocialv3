@@ -71,10 +71,6 @@ public class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.View
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        //esto hay q modificarlo con la de lo nuestro
-       //Comida item = Comida.COMIDAS_POPULARES.get(i);
-       // Lugar item = (Lugar) message.get("lugar");
-//        Log.e(TAG,imagen.get(i).toString());
         Map<String,Object> item = (Map<String, Object>) lugar.get(i);
         StorageReference storageReference = FirebaseStorage.getInstance().getReference(item.get("imagenUrl").toString());
         Glide.with(viewHolder.itemView.getContext())

@@ -17,38 +17,29 @@ import java.util.Observable;
  * Created by r3tx on 10/10/16.
  */
 public class ObtenerProductos extends Observable implements ValueEventListener {
-    public final String TAG="ObtenerLugares";
-    Map<String, Object> message;
-    ArrayList comida;
+    public final String TAG="ObtenerProducto";
+    Map<String, Object> message, ensayoBusqueda;
+    ArrayList productos;
     private DatabaseReference mDatabase;
-    String busqueda;
-    boolean evento;
-    Bundle bundle;
+
 
 
     public ObtenerProductos(Bundle bundle){
 
 
-        evento = bundle.getBoolean("evento");
-        busqueda=bundle.getString("comida");
-        comida = new ArrayList();
+        Map<String, Object>ensayoBusqueda2 = (Map<String, Object>) bundle.getSerializable("datos");
+        ensayoBusqueda = (Map<String, Object>) ensayoBusqueda2.get("productos");
+        productos = new ArrayList();
         /**implemnetar el query por el sevidor**/
         generarQuery();
 
     }
 
     public void generarQuery(){
-
-
-        if(evento) {
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("eventos");
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("productos");
             Query bar = mDatabase.orderByChild("name");
             bar.addValueEventListener(this);
-        }else{
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("lugares");
-            Query bar = mDatabase.orderByChild("categoria");
-            bar.addValueEventListener(this);
-        }
+
 
     }
 
@@ -57,16 +48,11 @@ public class ObtenerProductos extends Observable implements ValueEventListener {
     public void onDataChange(DataSnapshot dataSnapshot) {
 
         for(DataSnapshot eventSnapshot:dataSnapshot.getChildren()){
-            if(!evento) {
-                if (eventSnapshot.child("categoria").hasChild(busqueda)) {
-                    message = (Map<String, Object>) eventSnapshot.getValue();
-                    comida.add(message);
-                }
-            }else{
+            String key = eventSnapshot.getKey();//obtenemos la clave padre de este dato
+            if(ensayoBusqueda.containsKey(key)) {
                 message = (Map<String, Object>) eventSnapshot.getValue();
-                comida.add(message);
+                productos.add(message);
             }
-
         }
         setChanged();
         notifyObservers();
@@ -77,8 +63,8 @@ public class ObtenerProductos extends Observable implements ValueEventListener {
     public void onCancelled(DatabaseError databaseError) {
 
     }
-    public ArrayList getComida() {
-        return comida;
+    public ArrayList getProductos() {
+        return productos;
     }
-    public int cantidad(){return comida.size();}
+    public int cantidad(){return productos.size();}
 }
