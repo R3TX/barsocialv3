@@ -12,6 +12,12 @@
     tools:context="gr7.compumovil.udea.edu.co.barsocial3.MainActivity"
     tools:showIn="@layout/app_bar_main"
     android:id="@+id/content_main">
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
 
 
 </RelativeLayout>

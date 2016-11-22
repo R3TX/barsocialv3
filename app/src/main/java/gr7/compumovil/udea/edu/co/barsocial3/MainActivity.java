@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +23,7 @@ import gr7.compumovil.udea.edu.co.barsocial3.lugar.MainLugarFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public final String TAG="MainActivity.class";
-
+    ProgressBar pb = null;
 
     private DrawerLayout drawer;
     FirebaseAuth auth;
@@ -142,9 +144,16 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+        pb = (ProgressBar) findViewById(R.id.progress_bar);
+        pb.setVisibility(View.VISIBLE);
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 }

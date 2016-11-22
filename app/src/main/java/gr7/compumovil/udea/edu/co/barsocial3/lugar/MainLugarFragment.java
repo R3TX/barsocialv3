@@ -41,6 +41,10 @@ public class MainLugarFragment extends Fragment {
         adaptador = new AdaptadorLugares(getArguments());
         reciclador.setAdapter(adaptador);
         reciclador.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
+
         return view;
     }
+
+
+
 }

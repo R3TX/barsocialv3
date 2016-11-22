@@ -1,24 +1,33 @@
 package gr7.compumovil.udea.edu.co.barsocial3.lugar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.plus.model.people.Person;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Map;
 
+import gr7.compumovil.udea.edu.co.barsocial3.MapsActivity;
 import gr7.compumovil.udea.edu.co.barsocial3.R;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+import static java.security.AccessController.getContext;
 
 
 /**
@@ -29,6 +38,9 @@ public class FragmentoLugarInfo extends Fragment {
     TextView name,
     descripcion;
     Map<String, Object> datos;
+    Button btn;
+    String cLon;
+    String cLat;
 
 
 
@@ -40,9 +52,29 @@ public class FragmentoLugarInfo extends Fragment {
                              Bundle savedInstanceState) {
 
         Bundle b = getArguments();
+
         datos = (Map<String, Object>) b.getSerializable("datos");
         View view = inflater.inflate(R.layout.fragment_fragmento_lugar_info, container, false);
         //Toast.makeText(view.getContext(), datos.get("imagenUrl").toString(), Toast.LENGTH_LONG).show();
+        btn = (Button) view.findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity(), MapsActivity.class);
+
+                Map<String, Object> c = (Map<String, Object>) datos.get("gps");
+                cLat = c.get("lat").toString();
+                cLon = c.get("lon").toString();
+                intent.putExtra("lat", cLat);
+                intent.putExtra("lon", cLon);
+
+                startActivity(intent);
+
+
+                        //Toast.makeText(getContext(),c.get("lon").toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
         crear(view);
 
         return view;
@@ -113,4 +145,13 @@ public class FragmentoLugarInfo extends Fragment {
 
 
     }
+
+
+  //  public void abrirMapa(View view){
+
+    //    Toast.makeText(getContext(),"Hola", Toast.LENGTH_SHORT).show();
+
+    //}
+
+
 }

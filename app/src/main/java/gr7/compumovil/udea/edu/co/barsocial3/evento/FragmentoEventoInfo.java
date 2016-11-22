@@ -1,10 +1,12 @@
 package gr7.compumovil.udea.edu.co.barsocial3.evento;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.Map;
 
+import gr7.compumovil.udea.edu.co.barsocial3.MapsActivity;
 import gr7.compumovil.udea.edu.co.barsocial3.R;
 
 
@@ -26,6 +29,9 @@ public class FragmentoEventoInfo extends Fragment {
     TextView name,
     descripcion;
     Map<String, Object> datos;
+    Button btn;
+    String cLat;
+    String cLon;
 
 
 
@@ -40,6 +46,25 @@ public class FragmentoEventoInfo extends Fragment {
         datos = (Map<String, Object>) bundle.getSerializable("datos");
         View view = inflater.inflate(R.layout.fragment_fragmento_evento_info, container, false);
         //Toast.makeText(view.getContext(), datos.get("imagenUrl").toString(), Toast.LENGTH_LONG).show();
+        btn = (Button) view.findViewById(R.id.btn2);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity(), MapsActivity.class);
+
+                Map<String, Object> c = (Map<String, Object>) datos.get("gps");
+                cLat = c.get("lat").toString();
+                cLon = c.get("lon").toString();
+                intent.putExtra("lat", cLat);
+                intent.putExtra("lon", cLon);
+
+                startActivity(intent);
+
+
+                //Toast.makeText(getContext(),c.get("lon").toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
         crear(view);
 
         return view;

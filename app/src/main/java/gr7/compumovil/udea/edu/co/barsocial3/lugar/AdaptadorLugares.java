@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -31,6 +32,7 @@ import gr7.compumovil.udea.edu.co.barsocial3.R;
  */
 public class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.ViewHolder> implements Observer {
     public final static String TAG = "Adaptador Inicio";
+
 
     ObtenerLugares obtenerLugares;
     static ArrayList lugar,imagen;
@@ -88,6 +90,8 @@ public class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.View
     @Override
     public void update(Observable o, Object arg) {
         notifyDataSetChanged();
+
+
     }
 
 

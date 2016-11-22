@@ -11,5 +11,6 @@
     <string name="titulo_tab_productos_lugar">Productos</string>
     <string name="titulo_tab_eventos_lugar">Eventos</string>
     <string name="titulo_tab_lugar_eventos">Lugares</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
