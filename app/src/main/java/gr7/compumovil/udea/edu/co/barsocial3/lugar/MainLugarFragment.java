@@ -21,11 +21,11 @@ public class MainLugarFragment extends Fragment {
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
     private AdaptadorLugares adaptador;
-    //ObtenerLugares obtenerLugares;
+    //buscar obtenerLugares;
     private String busqueda;
 
     public MainLugarFragment(){
-        //obtenerLugares = new ObtenerLugares();
+        //obtenerLugares = new buscar();
     }
 
     @Override

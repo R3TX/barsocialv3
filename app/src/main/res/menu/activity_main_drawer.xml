@@ -19,6 +19,11 @@
             android:icon="@drawable/side_nav_bar"
             android:title="Eventos" />
 
+        <item
+            android:id="@+id/Cerrar"
+            android:icon="@drawable/side_nav_bar"
+            android:title="Cerrar Sesion" />
+
     </group>
 
 

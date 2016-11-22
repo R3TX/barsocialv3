@@ -1,5 +1,6 @@
 package gr7.compumovil.udea.edu.co.barsocial3;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,20 +18,34 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import gr7.compumovil.udea.edu.co.barsocial3.evento.EventosFragmento;
+import gr7.compumovil.udea.edu.co.barsocial3.evento.ObtenerEventos;
 import gr7.compumovil.udea.edu.co.barsocial3.lugar.MainLugarFragment;
+import gr7.compumovil.udea.edu.co.barsocial3.lugar.ObtenerLugares;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Observer{
     public final String TAG="MainActivity.class";
     ProgressBar pb = null;
-
+    ObtenerLugares obtenerLugares;
+    ObtenerEventos obtenerEventos;
     private DrawerLayout drawer;
     FirebaseAuth auth;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        obtenerLugares = ObtenerLugares.ObtenerLugares();
+        obtenerLugares.addObserver(this);
+
+        obtenerEventos = ObtenerEventos.ObtenerEventos();
+        obtenerEventos.addObserver(this);
+
 
 
 
@@ -41,7 +56,7 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this,"No_Existo",Toast.LENGTH_LONG);
         }
 
-        auth.signInAnonymously();
+        //auth.signInAnonymously();
 
 
 
@@ -133,6 +148,10 @@ public class MainActivity extends AppCompatActivity
             fragmentoGenerico = new EventosFragmento();
             //fragmentoGenerico = new FragmentoLugar();
 
+        }else if (id == R.id.Cerrar){
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
         if (fragmentoGenerico != null) {
@@ -143,9 +162,9 @@ public class MainActivity extends AppCompatActivity
                     .commit();
         }
 
-
         pb = (ProgressBar) findViewById(R.id.progress_bar);
         pb.setVisibility(View.VISIBLE);
+
 
 
 
@@ -155,5 +174,9 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
+    @Override
+    public void update(Observable o, Object arg) {
+        pb = (ProgressBar) findViewById(R.id.progress_bar);
+        pb.setVisibility(View.GONE);
+    }
 }

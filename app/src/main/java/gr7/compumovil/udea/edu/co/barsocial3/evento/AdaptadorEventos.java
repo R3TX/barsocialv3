@@ -35,7 +35,8 @@ class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.ViewHolder>
     static ArrayList evento;
 
     public AdaptadorEventos(Bundle bundle){
-        obtenerEventos = new ObtenerEventos(bundle);
+        obtenerEventos = ObtenerEventos.ObtenerEventos();
+        obtenerEventos.Eventos(bundle);
         obtenerEventos.addObserver(this);
         evento = obtenerEventos.getEvento();
     }

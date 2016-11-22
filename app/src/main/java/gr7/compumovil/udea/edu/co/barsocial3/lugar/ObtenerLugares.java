@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Observable;
 
 import gr7.compumovil.udea.edu.co.barsocial3.DAO.Lugar;
+import gr7.compumovil.udea.edu.co.barsocial3.MainActivity;
 
 /**
  * Created by r3tx on 10/10/16.
@@ -27,9 +28,20 @@ public class ObtenerLugares extends Observable implements ValueEventListener {
     String busqueda;
     boolean evento;
     Bundle bundle;
+    static ObtenerLugares obtenerLugares;
 
+    public static ObtenerLugares ObtenerLugares(){
+        if (obtenerLugares == null){
+            obtenerLugares = new ObtenerLugares();
+        }
+        return obtenerLugares;
+    }
 
-    public ObtenerLugares(Bundle bundle){
+    private ObtenerLugares(){
+
+    }
+
+    public void buscar(Bundle bundle){
 
 
         evento = bundle.getBoolean("evento");

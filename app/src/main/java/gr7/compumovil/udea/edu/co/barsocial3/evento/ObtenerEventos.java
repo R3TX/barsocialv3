@@ -22,8 +22,20 @@ public class ObtenerEventos extends Observable implements ValueEventListener {
     ArrayList evento;
     private DatabaseReference mDatabase;
 
+    static ObtenerEventos obtenerEventos;
 
-    public ObtenerEventos(Bundle bundle){
+    public static ObtenerEventos ObtenerEventos(){
+        if (obtenerEventos == null){
+            obtenerEventos = new ObtenerEventos();
+        }
+        return obtenerEventos;
+    }
+
+    private ObtenerEventos(){
+
+    }
+
+    public void Eventos(Bundle bundle){
 
         evento = new ArrayList();
         /**implemnetar el query por el sevidor**/

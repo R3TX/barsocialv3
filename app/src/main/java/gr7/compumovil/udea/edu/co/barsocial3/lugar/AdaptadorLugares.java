@@ -38,14 +38,15 @@ public class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.View
     static ArrayList lugar,imagen;
    /*
     public AdaptadorLugares(){//ArrayList obtener){
-        obtenerLugares = new ObtenerLugares("Bar");
+        obtenerLugares = new buscar("Bar");
         obtenerLugares.addObserver(this);
         lugar=obtenerLugares.getEvento();
         //imagen=obtenerLugares.getImagen();
     }*/
 
     public AdaptadorLugares(Bundle bundle){//ArrayList obtener){
-        obtenerLugares = new ObtenerLugares(bundle);
+        obtenerLugares = ObtenerLugares.ObtenerLugares();
+        obtenerLugares.buscar(bundle);
         obtenerLugares.addObserver(this);
         lugar= obtenerLugares.getLugar();
         //imagen=obtenerLugares.getImagen();
@@ -83,6 +84,7 @@ public class AdaptadorLugares extends RecyclerView.Adapter<AdaptadorLugares.View
         viewHolder.nombre.setText(item.get("name").toString());
         viewHolder.pequeñaDescripcion.setText( item.get("pequeñaDescripcion").toString());
         viewHolder.setStarts(Double.valueOf(item.get("rate").toString()));
+
 
 
     }
