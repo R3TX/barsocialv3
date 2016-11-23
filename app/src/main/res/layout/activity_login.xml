@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:backgroundTint="#FFC04C"
+    android:background="@drawable/fondo0"
     tools:context="gr7.compumovil.udea.edu.co.barsocial3.LoginActivity">
 
    <!-- <com.facebook.login.widget.LoginButton
@@ -52,23 +52,27 @@
         android:layout_width="200dp"
         android:layout_height="25dp"
         android:hint="Password"
-        android:background="@color/com_facebook_button_background_color_focused"
-        android:textColor="@color/cardview_dark_background"
+        android:textColor="@android:color/white"
         android:inputType="textPassword"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="#20535252"
+        android:textSize="22sp"
+        android:textColorHint="@color/buttonTextColor" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="200dp"
         android:layout_height="25dp"
         android:hint="Email"
-        android:background="@color/com_facebook_button_background_color_focused"
-        android:textColor="@android:color/black"
-        android:inputType="text"
 
+        android:textColor="@android:color/white"
+        android:inputType="text"
+        android:background="#20535252"
         android:layout_above="@+id/password"
-        android:layout_alignStart="@+id/password" />
+        android:layout_alignStart="@+id/password"
+        android:textSize="22sp"
+        android:textColorHint="@color/buttonTextColor" />
 
  <Button
      android:text="Crear Usuario"
